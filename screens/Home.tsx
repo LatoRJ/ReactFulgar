@@ -1,30 +1,23 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Button, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { useNavigation } from '@react-navigation/native';
-
+import { useNavigation, useRoute } from '@react-navigation/native';
+import styles from '../styles/styles.js';
 export default function Home() {
 
-  const navigate  =useNavigation();
+  const navigate = useNavigation();
+  const route = useRoute();
+  const id    = route.params;
 
   return (
-    <view style={ styles.container }>
-      <text>
-        Go to next Screen.
-      </text>
-      <view>
-        <button 
-          title='Next'
-          onProgress={ ()=> navigate.navigate('About', 2)}
+    <View style = {styles.container}>
+      <Text>Go to About! </Text>
+      <View>
+        <Button
+          title='Index'
+          onPress={ ()=> navigate.navigate('about')}
         />
-      </view>
-    </view>
+      </View>
+      </View>
   )
 }
 
-const styles = StyleSheet.create({
-  container:{
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center"
-  }
-})

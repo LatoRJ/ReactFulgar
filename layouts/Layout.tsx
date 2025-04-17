@@ -16,9 +16,9 @@ export default function Layout() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name ='index' component { () => (<Index />)}/>
-        <Stack.Screen name ='home' component { () => (<Home />)}/>
-        <Stack.Screen name ='about' component { () => (<About />)}/>
+        <Stack.Screen name ='index' component = { () => (<Index />)}/>
+        <Stack.Screen name ='home' component = { () => (<Home />)}/>
+        <Stack.Screen name ='about' component = { () => (<About />)}/>
       </Stack.Navigator>
     </NavigationContainer>
   )
