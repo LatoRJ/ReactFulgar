@@ -7,6 +7,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Index from '../screens/Index';
 import Home from '../screens/Home';
 import About from '../screens/About';
+import Start from '../screens/Start';
 
 
 export default function Layout() {
@@ -19,6 +20,7 @@ export default function Layout() {
         <Stack.Screen name ='index' component = { () => (<Index />)}/>
         <Stack.Screen name ='home' component = { () => (<Home />)}/>
         <Stack.Screen name ='about' component = { () => (<About />)}/>
+        <Stack.Screen name ='start' component = { () => (<Start />)}/>
       </Stack.Navigator>
     </NavigationContainer>
   )
