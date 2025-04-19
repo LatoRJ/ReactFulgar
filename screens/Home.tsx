@@ -11,8 +11,8 @@ export default function Home() {
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.imageContainer} />
-        <Text style={styles.title}>Streamlined Checkout</Text>
-        <Text style={styles.subtitle}>Add items to cart, pay securely with one tap,{'\n'}and track every order in real time.</Text>
+        <Text style={styles.title}>Crafted for Every Moment</Text>
+        <Text style={styles.subtitle}>From classic designs to bold statements,{'\n'}find the perfect watch for every mood and milestone.</Text>
 
         <View style={styles.dotContainer}>
           <View style={[styles.dot, styles.inactiveDot]} />

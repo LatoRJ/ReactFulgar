@@ -10,8 +10,8 @@ export default function About() {
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.imageContainer} />
-        <Text style={styles.title}>Fast, Reliable Delivery</Text>
-        <Text style={styles.subtitle}>Get your purchases at your doorstep—same‑day{'\n'}or next‑day options available.</Text>
+        <Text style={styles.title}>Your Next Favorite Watch Awaits</Text>
+        <Text style={styles.subtitle}>Start exploring exclusive collections,{'\n'}top brands, and limited-edition pieces — only a tap away.</Text>
 
         <View style={styles.dotContainer}>
           <View style={[styles.dot, styles.inactiveDot]} />
@@ -23,7 +23,7 @@ export default function About() {
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.nextButton} onPress={() => navigation.navigate('Start')}>
-          <Text style={styles.nextButtonText}>GET STARTED</Text>
+          <Text style={styles.nextButtonText}>EXPLORE NOW</Text>
         </TouchableOpacity>
       </View>
     </View>

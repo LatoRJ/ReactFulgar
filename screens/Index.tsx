@@ -10,9 +10,9 @@ export default function Index() {
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.imageContainer} />
-        <Text style={styles.title}>Explore Curated Collections</Text>
+        <Text style={styles.title}>Timeless Style, Modern Edge</Text>
         <Text style={styles.description}>
-        Browse thousands of handpicked products{'\n'}in every category—just for you.
+        Discover watches that blend elegance with innovation{'\n'}because your time deserves more than ordinary.
         </Text>
 
         <View style={styles.dotContainer}>
