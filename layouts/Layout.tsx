@@ -17,10 +17,10 @@ export default function Layout() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name ='index' component = { () => (<Index />)}/>
-        <Stack.Screen name ='home' component = { () => (<Home />)}/>
-        <Stack.Screen name ='about' component = { () => (<About />)}/>
-        <Stack.Screen name ='start' component = { () => (<Start />)}/>
+        <Stack.Screen name ='Index' component = { () => (<Index />)}/>
+        <Stack.Screen name ='Home' component = { () => (<Home />)}/>
+        <Stack.Screen name ='About' component = { () => (<About />)}/>
+        <Stack.Screen name ='Start' component = { () => (<Start />)}/>
       </Stack.Navigator>
     </NavigationContainer>
   )
