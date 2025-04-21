@@ -44,7 +44,7 @@ export default function About() {
     imageContainer: {
       width: 250,
       height: 330,
-      backgroundColor: '#A3B1C6',
+      backgroundColor: '#000000',
       borderRadius: 12,
       marginBottom: 40,
     },
@@ -72,19 +72,19 @@ export default function About() {
       width: 10,
       height: 10,
       borderRadius: 5,
-      backgroundColor: '#FD7622',
+      backgroundColor: '#000000',
     },
     inactiveDot: {
       width: 8,
       height: 8,
       borderRadius: 4,
-      backgroundColor: '#FAD4B6',
+      backgroundColor: '#696969',
     },
     buttonContainer: {
       alignItems: 'center',
     },
     nextButton: {
-      backgroundColor: '#FD7622',
+      backgroundColor: '#000000',
       paddingVertical: 14,
       borderRadius: 10,
       width: '100%',
