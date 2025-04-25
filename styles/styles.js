@@ -60,7 +60,12 @@ const styles = StyleSheet.create({
         height: 330,
         backgroundColor: '#000000',
         borderRadius: 12,
+        overflow: 'hidden',
         marginBottom: 40,
+      },
+      image: {
+        width: '100%',
+        height: '100%',
       },
       title: {
         fontSize: 18,

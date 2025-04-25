@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import styles from '../styles/styles';
 
@@ -10,7 +10,12 @@ export default function GettingStarted1() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <View style={styles.imageContainer} />
+        <View style={styles.imageContainer}>
+            <Image
+              source={require('../assets/img1.png')} // change to your image path
+              style={styles.image}
+              resizeMode="cover"/>
+          </View>
         <Text style={styles.title}>Timeless Style, Modern Edge</Text>
         <Text style={styles.subtitle}>
         Discover watches that blend elegance with innovation{'\n'}because your time deserves more than ordinary.

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import styles from '../styles/styles';
 
@@ -11,7 +11,12 @@ export default function GettingStarted2() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <View style={styles.imageContainer} />
+      <View style={styles.imageContainer}>
+            <Image
+              source={require('../assets/img2.png')} // change to your image path
+              style={styles.image}
+              resizeMode="cover"/>
+          </View>
         <Text style={styles.title}>Crafted for Every Moment</Text>
         <Text style={styles.subtitle}>From classic designs to bold statements,{'\n'}find the perfect watch for every mood and milestone.</Text>
 

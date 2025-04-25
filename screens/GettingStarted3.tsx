@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import styles from '../styles/styles';
 
@@ -10,7 +10,12 @@ export default function GettingStarted3() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <View style={styles.imageContainer} />
+      <View style={styles.imageContainer}>
+            <Image
+              source={require('../assets/img3.png')} // change to your image path
+              style={styles.image}
+              resizeMode="cover"/>
+          </View>
         <Text style={styles.title}>Your Next Favorite Watch Awaits</Text>
         <Text style={styles.subtitle}>Start exploring exclusive collections,{'\n'}top brands, and limited-edition pieces — only a tap away.</Text>
 
