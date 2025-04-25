@@ -11,7 +11,7 @@ export default function Start() {
       <View style={styles.headerContainer}>
         <View style={styles.deliveryContainer}>
         <View style={styles.iconWrapper}>
-            <Icon name="menu" size={24} color="#000" />
+            <Icon name="menu" size={24} color="#fff" />
         </View>
           <View style={styles.deliveryTextContainer}>
             <Text style={styles.deliverTo}>DELIVER TO</Text>
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   },
   deliverTo: {
     fontSize: 12,
-    color: '#fffff',
+    color: '#000',
     fontWeight: 'bold',
   },
   location: {
@@ -63,8 +63,8 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   cartIconContainer: {
-    backgroundColor: '#000',
-    borderRadius: 50,
+    backgroundColor: '#6e6e6e',
+    borderRadius: 20,
     padding: 10,
     position: 'relative',
   },
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: -4,
     right: -4,
-    backgroundColor: '#696969',
+    backgroundColor: '#424242',
     borderRadius: 12,
     paddingHorizontal: 6,
     paddingVertical: 2,
@@ -95,9 +95,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   iconWrapper: {
-    backgroundColor: '#d1d1cf',
+    backgroundColor: '#6e6e6e',
     padding: 8,
-    borderRadius: 50,
+    borderRadius: 15,
     justifyContent: 'center',
     alignItems: 'center',
   },
