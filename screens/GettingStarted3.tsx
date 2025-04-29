@@ -12,7 +12,7 @@ export default function GettingStarted3() {
       <View style={styles.header}>
       <View style={styles.imageContainer}>
             <Image
-              source={require('../assets/img3.png')} // change to your image path
+              source={require('../assets/img3.png')}
               style={styles.image}
               resizeMode="cover"/>
           </View>
@@ -23,7 +23,6 @@ export default function GettingStarted3() {
           <View style={[styles.dot, styles.inactiveDot]} />
           <View style={[styles.dot, styles.inactiveDot]} />
           <View style={[styles.dot, styles.activeDot]} />
-          <View style={[styles.dot, styles.inactiveDot]} />
         </View>
       </View>
 

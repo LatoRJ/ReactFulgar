@@ -123,6 +123,11 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         alignItems: 'center',
       },
+      text:{
+        fontWeight: 'bold',
+        fontSize: 24,
+        paddingTop: 280,
+      },
 });
 
 export default styles;

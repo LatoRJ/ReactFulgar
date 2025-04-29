@@ -5,7 +5,7 @@ import styles from '../../styles/styles'
 export default function Settings() {
   return (
     <View style = {styles.center}>
-      <Text>Settings</Text>
+      <Text style = {styles.text}>Settings</Text>
     </View>
   )
 }

@@ -5,7 +5,7 @@ import styles from '../../styles/styles'
 export default function Home() {
   return (
     <View style = {styles.center}>
-      <Text>Home</Text>
+      <Text style = {styles.text}>Home</Text>
     </View>
   )
 }

@@ -5,7 +5,7 @@ import styles from '../../styles/styles'
 export default function Profile() {
   return (
     <View style = {styles.center}>
-      <Text>Profile</Text>
+      <Text style = {styles.text}>Profile</Text>
     </View>
   )
 }

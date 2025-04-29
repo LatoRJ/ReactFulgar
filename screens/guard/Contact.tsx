@@ -5,7 +5,7 @@ import styles from '../../styles/styles'
 export default function Contact() {
   return (
     <View style = {styles.center}>
-      <Text>Contact</Text>
+      <Text style = {styles.text}>Contact</Text>
     </View>
   )
 }
