@@ -8,10 +8,18 @@ export default function CustomHeader() {
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.headerContainer}>
         <View style={styles.deliveryContainer}>
-          <Icon name="menu" size={24} color="#000" />
+          <TouchableOpacity>
+            <Icon name="menu" size={24} color="#000" />
+          </TouchableOpacity>
           <View style={styles.deliveryTextContainer}>
             <Text style={styles.deliverTo}>DELIVER TO</Text>
-            <Text style={styles.location}>Halal Lab office ▼</Text>
+            <View style = {styles.deliveryContainer}>
+            <Text style={styles.location}>Halal Lab office </Text>
+            <TouchableOpacity>
+              <Icon name="caret-down" size={18} color="#000" />
+            </TouchableOpacity>
+            </View>
+            
           </View>
         </View>
 
@@ -35,6 +43,8 @@ export default function CustomHeader() {
 const styles = StyleSheet.create({
   safeArea: {
     backgroundColor: '#fff',
+    paddingVertical:35,
+    height: 140,
   },
   headerContainer: {
     flexDirection: 'row',
@@ -59,7 +69,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   cartIconContainer: {
-    backgroundColor: '#3498db',
+    backgroundColor: '#000000',
     borderRadius: 20,
     width: 40,
     height: 40,
@@ -85,7 +95,7 @@ const styles = StyleSheet.create({
   },
   greetingContainer: {
     paddingHorizontal: 16,
-    paddingBottom: 10,
+    paddingBottom: 1,
   },
   greetingText: {
     fontSize: 16,

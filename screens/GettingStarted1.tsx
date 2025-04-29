@@ -30,7 +30,7 @@ export default function GettingStarted1() {
       </View>
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.nextButton} onPress={() => navigation.navigate('Home')}>
+        <TouchableOpacity style={styles.nextButton} onPress={() => navigation.navigate('GettingStarted2')}>
           <Text style={styles.nextButtonText}>NEXT</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Start')}>

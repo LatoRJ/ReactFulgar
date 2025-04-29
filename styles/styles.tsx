@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
       },
       header: {
         alignItems: 'center',
-        marginTop: 60,
+        marginTop: 180,
       },
       imageContainer: {
         width: 250,
@@ -118,6 +118,10 @@ const styles = StyleSheet.create({
       skipText: {
         fontSize: 14,
         color: '#000',
+      },
+      center:{
+        alignSelf: 'center',
+        alignItems: 'center',
       },
 });
 
