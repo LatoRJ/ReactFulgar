@@ -62,7 +62,7 @@ export default function Layout() {
         <Stack.Screen name="GettingStarted1" component={GettingStarted1} />
         <Stack.Screen name="GettingStarted2" component={GettingStarted2} />
         <Stack.Screen name="GettingStarted3" component={GettingStarted3} />
-        <Stack.Screen name="Start" component={CustomTabs} />
+        <Stack.Screen name="Start" component={Start} />
       </Stack.Navigator>
     </NavigationContainer>
   );
