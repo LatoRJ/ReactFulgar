@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-    container:{
+    container: {
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
@@ -50,84 +50,212 @@ const styles = StyleSheet.create({
         paddingBottom: 24,
         backgroundColor: '#fff',
         justifyContent: 'space-between',
-      },
-      header: {
+    },
+    header: {
         alignItems: 'center',
         marginTop: 180,
-      },
-      imageContainer: {
+    },
+    imageContainer: {
         width: 250,
         height: 330,
         backgroundColor: '#000000',
         borderRadius: 12,
         overflow: 'hidden',
         marginBottom: 40,
-      },
-      image: {
+    },
+    image: {
         width: '100%',
         height: '100%',
-      },
-      title: {
+    },
+    title: {
         fontSize: 18,
         fontWeight: '700',
         marginBottom: 16,
         color: '#2E2E2E',
-      },
-      subtitle: {
+    },
+    subtitle: {
         fontSize: 14,
         textAlign: 'center',
         color: '#666',
         marginBottom: 30,
-      },
-      dotContainer: {
+    },
+    dotContainer: {
         flexDirection: 'row',
         justifyContent: 'center',
         marginTop: 30,
-      },
-      dot: {
+    },
+    dot: {
         marginHorizontal: 4,
-      },
-      activeDot: {
+    },
+    activeDot: {
         width: 10,
         height: 10,
         borderRadius: 5,
         backgroundColor: '#000000',
-      },
-      inactiveDot: {
+    },
+    inactiveDot: {
         width: 8,
         height: 8,
         borderRadius: 4,
         backgroundColor: '#696969',
-      },
-      buttonContainer: {
+    },
+    buttonContainer: {
         alignItems: 'center',
-      },
-      nextButton: {
+    },
+    nextButton: {
         backgroundColor: '#000000',
         paddingVertical: 14,
         borderRadius: 10,
         width: '100%',
         alignItems: 'center',
         marginBottom: 45,
-      },
-      nextButtonText: {
+    },
+    nextButtonText: {
         color: '#fff',
         fontWeight: '600',
         fontSize: 16,
-      },
-      skipText: {
+    },
+    skipText: {
         fontSize: 14,
         color: '#000',
-      },
-      center:{
+    },
+    center:{
         alignSelf: 'center',
         alignItems: 'center',
-      },
-      text:{
+    },
+    text:{
         fontWeight: 'bold',
         fontSize: 24,
         paddingTop: 280,
-      },
+    },
+
+    // Login Screen Stylings
+    loginContainer: {
+        flex: 1,
+        backgroundColor: '#FFF',
+        paddingHorizontal: 20,
+    },
+    loginHeader: {
+        alignItems: 'center',
+        marginTop: 40,
+    },
+    loginTitle: {
+        fontSize: 28,
+        fontWeight: 'bold',
+        color: '#000',
+    },
+    loginSubtitle: {
+        fontSize: 16,
+        color: '#666',
+        textAlign: 'center',
+        marginTop: 10,
+    },
+    formContainer: {
+        marginTop: 30,
+    },
+    inputContainer: {
+        marginBottom: 20,
+    },
+    label: {
+        fontSize: 12,
+        color: '#666',
+        marginBottom: 5,
+    },
+    input: {
+        borderWidth: 1,
+        borderColor: '#E5E5E5',
+        borderRadius: 8,
+        padding: 12,
+        fontSize: 16,
+        backgroundColor: '#F5F7FA',
+    },
+    passwordContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: '#E5E5E5',
+        borderRadius: 8,
+        backgroundColor: '#F5F7FA',
+    },
+    eyeIcon: {
+        padding: 12,
+    },
+    optionsContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 20,
+    },
+    checkboxContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    checkbox: {
+        width: 20,
+        height: 20,
+        borderWidth: 1,
+        borderColor: '#666',
+        borderRadius: 4,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: 8,
+    },
+    checkboxChecked: {
+        backgroundColor: '#FF6200',
+        borderColor: '#FF6200',
+    },
+    checkboxText: {
+        fontSize: 14,
+        color: '#666',
+    },
+    forgotPassword: {
+        fontSize: 14,
+        color: '#FF6200',
+    },
+    loginButton: {
+        backgroundColor: '#FF6200',
+        paddingVertical: 15,
+        borderRadius: 8,
+        alignItems: 'center',
+        marginBottom: 20,
+    },
+    loginButtonText: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#FFF',
+    },
+    signupContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginBottom: 20,
+    },
+    signupText: {
+        fontSize: 14,
+        color: '#666',
+    },
+    signupLink: {
+        fontSize: 14,
+        color: '#FF6200',
+        fontWeight: 'bold',
+    },
+    orText: {
+        fontSize: 14,
+        color: '#666',
+        textAlign: 'center',
+        marginVertical: 20,
+    },
+    socialButtonsContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+    },
+    socialButton: {
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginHorizontal: 10,
+    },
 });
 
 export default styles;
