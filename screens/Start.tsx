@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
@@ -12,6 +13,8 @@ export default function Start() {
   const [rememberMe, setRememberMe] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
 
+  const navigation = useNavigation();
+
   return (
     <SafeAreaView style={styles.loginContainer}>
       <View style={styles.loginHeader}>
@@ -20,7 +23,6 @@ export default function Start() {
       </View>
 
       <View style={styles.formContainer}>
-        {/* Email Input */}
         <View style={styles.inputContainer}>
           <Text style={styles.label}>EMAIL</Text>
           <TextInput
@@ -34,7 +36,6 @@ export default function Start() {
           />
         </View>
 
-        {/* Password Input */}
         <View style={styles.inputContainer}>
           <Text style={styles.label}>PASSWORD</Text>
           <View style={styles.passwordContainer}>
@@ -57,14 +58,13 @@ export default function Start() {
           </View>
         </View>
 
-        {/* Remember Me and Forgot Password */}
         <View style={styles.optionsContainer}>
           <TouchableOpacity
             style={styles.checkboxContainer}
             onPress={() => setRememberMe(!rememberMe)}
           >
             <View style={[styles.checkbox, rememberMe && styles.checkboxChecked]}>
-              {rememberMe && <Icon name="check" size={14} color="#FFF" />}
+              {rememberMe && <Icon name="check" size={14} color  color="#FFF" />}
             </View>
             <Text style={styles.checkboxText}>Remember me</Text>
           </TouchableOpacity>
@@ -73,23 +73,19 @@ export default function Start() {
           </TouchableOpacity>
         </View>
 
-        {/* Log In Button */}
         <TouchableOpacity style={styles.loginButton}>
           <Text style={styles.loginButtonText}>LOG IN</Text>
         </TouchableOpacity>
 
-        {/* Sign Up Link */}
         <View style={styles.signupContainer}>
           <Text style={styles.signupText}>Don't have an account? </Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
             <Text style={styles.signupLink}>SIGN UP</Text>
           </TouchableOpacity>
         </View>
 
-        {/* Divider */}
         <Text style={styles.orText}>Or</Text>
 
-        {/* Social Login Buttons */}
         <View style={styles.socialButtonsContainer}>
           <TouchableOpacity style={[styles.socialButton, { backgroundColor: '#3B5998' }]}>
             <FontAwesome name="facebook" size={24} color="#FFF" />

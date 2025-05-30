@@ -256,6 +256,42 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginHorizontal: 10,
     },
+
+    signupScreenContainer: {
+        flex: 1,
+        backgroundColor: '#FFF',
+        paddingHorizontal: 20,
+    },
+    backButton: {
+        marginTop: 20,
+    },
+    signupHeader: {
+        alignItems: 'center',
+        marginTop: 20,
+    },
+    signupTitle: {
+        fontSize: 28,
+        fontWeight: 'bold',
+        color: '#000',
+    },
+    signupSubtitle: {
+        fontSize: 16,
+        color: '#666',
+        textAlign: 'center',
+        marginTop: 10,
+    },
+    signupButton: {
+        backgroundColor: '#FF6200',
+        paddingVertical: 15,
+        borderRadius: 8,
+        alignItems: 'center',
+        marginBottom: 20,
+    },
+    signupButtonText: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#FFF',
+    },
 });
 
 export default styles;

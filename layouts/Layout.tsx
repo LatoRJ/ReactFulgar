@@ -4,6 +4,7 @@ import GettingStarted1 from '../screens/GettingStarted1';
 import GettingStarted2 from '../screens/GettingStarted2';
 import GettingStarted3 from '../screens/GettingStarted3';
 import Start from '../screens/Start';
+import SignUp from '../screens/SignUp';
 import CustomHeader from '../components/CustomHeader';
 import { Entypo, AntDesign, Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -63,6 +64,7 @@ export default function Layout() {
         <Stack.Screen name="GettingStarted2" component={GettingStarted2} />
         <Stack.Screen name="GettingStarted3" component={GettingStarted3} />
         <Stack.Screen name="Start" component={Start} />
+        <Stack.Screen name="SignUp" component={SignUp} />
       </Stack.Navigator>
     </NavigationContainer>
   );
