@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Feather';
@@ -14,6 +14,30 @@ export default function Start() {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const navigation = useNavigation();
+
+  const fixedUser = {
+    email: 'admin@example.com',
+    password: 'admin',
+  };
+
+  const handleLogin = () => {
+    if (email === fixedUser.email && password === fixedUser.password) {
+      console.log('Navigating to CustomTabs');
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'CustomTabs' }],
+      });
+    } else {
+      Alert.alert(
+        'Login Failed',
+        'Invalid email or password. Please try again.',
+        [
+          { text: 'OK', onPress: () => console.log('Alert closed') }
+        ],
+        { cancelable: false }
+      );
+    }
+  };
 
   return (
     <SafeAreaView style={styles.loginContainer}>
@@ -56,7 +80,7 @@ export default function Start() {
               />
             </TouchableOpacity>
           </View>
-        </View>
+        </View> 
 
         <View style={styles.optionsContainer}>
           <TouchableOpacity
@@ -73,7 +97,7 @@ export default function Start() {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity style={styles.loginButton}>
+        <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
           <Text style={styles.loginButtonText}>LOG IN</Text>
         </TouchableOpacity>
 
