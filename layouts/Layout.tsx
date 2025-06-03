@@ -13,6 +13,8 @@ import Contact from '../screens/guard/Contact';
 import Profile from '../screens/guard/Profile';
 import Settings from '../screens/guard/Settings';
 import Landing from '../screens/landing';
+import WatchList from '../screens/guard/watchcategory/WatchList';
+
 
 function CustomTabs() {
   const Tabs = createBottomTabNavigator();
@@ -66,6 +68,8 @@ export default function Layout() {
         <Stack.Screen name="Start" component={Start} />
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="CustomTabs" component={CustomTabs} />
+        <Stack.Screen name="WatchList" component={WatchList} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
