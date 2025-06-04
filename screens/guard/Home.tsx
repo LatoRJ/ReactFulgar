@@ -3,11 +3,12 @@ import { View, Text, TextInput, StyleSheet, FlatList, TouchableOpacity, Image } 
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import SearchBar from '../../components/SearchBar';
 
 const Home = () => {
   const navigation = useNavigation();
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [searchQuery, setSearchQuery] = useState('');
 
   const categories = [
     { id: '1', name: 'All', image: 'https://via.placeholder.com/30/808080' },
@@ -26,6 +27,15 @@ const Home = () => {
     { id: '5', name: 'Burger Timepiece Store', brand: 'Casio', rating: 4.0, freeDelivery: true, time: '18 min', image: 'https://via.placeholder.com/100/808080' },
     { id: '6', name: 'Luxury Time Shop', brand: 'Rolex', rating: 4.6, freeDelivery: false, time: '22 min', image: 'https://via.placeholder.com/100/808080' },
   ];
+
+  const handleSearch = (query) => {
+    setSearchQuery(query.toLowerCase());
+  };
+
+  const filteredShops = watchShops.filter(shop =>
+    shop.name.toLowerCase().includes(searchQuery) ||
+    shop.brand.toLowerCase().includes(searchQuery)
+  );
 
   const renderCategory = ({ item }) => (
     <TouchableOpacity
@@ -74,17 +84,7 @@ const Home = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.searchContainer}>
-        <View style={styles.searchInputContainer}>
-          <Ionicons name="search" size={20} color="#A9A9A9" style={styles.searchIcon} />
-          <TextInput
-            style={styles.searchInput}
-            placeholder="Search watches, shops"
-            placeholderTextColor="#A9A9A9"
-          />
-        </View>
-      </View>
-
+      <SearchBar onSearch={handleSearch} />
       <View style={styles.categoriesHeader}>
         <Text style={styles.categoriesTitle}>All Categories</Text>
         <TouchableOpacity>
@@ -109,11 +109,11 @@ const Home = () => {
         </TouchableOpacity>
       </View>
       <FlatList
-        data={watchShops}
+        data={filteredShops}
         renderItem={renderShop}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.shopsContainer}
+        contentContainerStyle={styles.shopsList}
       />
     </View>
   );
@@ -124,25 +124,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     padding: 16,
-  },
-  searchContainer: {
-    marginBottom: 15,
-  },
-  searchInputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#E5E5A9',
-    borderRadius: 8,
-    backgroundColor: '#F5F7FA',
-    height: 40,
-  },
-  searchIcon: {
-    paddingHorizontal: 10,
-  },
-  searchInput: {
-    flex: 1,
-    fontSize: 16,
   },
   categoriesHeader: {
     flexDirection: 'row',
@@ -203,7 +184,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#333',
   },
-  shopsContainer: {
+  shopsList: {
     paddingBottom: 15,
   },
   shopContainer: {
