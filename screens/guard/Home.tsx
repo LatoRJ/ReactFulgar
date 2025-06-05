@@ -1,10 +1,11 @@
 import React, { useState, useCallback } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert } from 'react-native';
-import { useNavigation, useFocusEffect } from '@react-navigation/native'; // Add useFocusEffect
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import SearchBar from '../../components/SearchBar';
 import Categories from '../../components/Categories';
 import ShopCard from '../../components/ShopCard';
-import { categories, watchShops } from '../../components/Datas/data';
+import ProductCard from '../../components/ProductCard';
+import { categories, watchShops, products } from '../../components/Datas/data';
 
 const Home = () => {
   const navigation = useNavigation();
@@ -17,6 +18,10 @@ const Home = () => {
 
   const handleShopPress = (shop) => {
     Alert.alert('Shop Selected', `You clicked on ${shop.name}`);
+  };
+
+  const handleProductPress = (product) => {
+    Alert.alert('Product Selected', `You clicked on ${product.name}`);
   };
 
   const handleSearchBarPress = () => {
@@ -33,6 +38,12 @@ const Home = () => {
     (selectedCategory === 'All' || shop.brand === selectedCategory) &&
     (shop.name.toLowerCase().includes(searchQuery) ||
     shop.brand.toLowerCase().includes(searchQuery))
+  );
+
+  const filteredProducts = products.filter(product =>
+    (selectedCategory === 'All' || product.brand === selectedCategory) &&
+    (product.name.toLowerCase().includes(searchQuery) ||
+    product.brand.toLowerCase().includes(searchQuery))
   );
 
   return (
@@ -56,6 +67,21 @@ const Home = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.shopsList}
       />
+      <View style={styles.productsHeader}>
+        <Text style={styles.shopsTitle}>Featured Products</Text>
+        <TouchableOpacity>
+          <Text style={styles.seeAllText}>See All</Text>
+        </TouchableOpacity>
+      </View>
+      <FlatList
+        data={filteredProducts}
+        renderItem={({ item }) => <ProductCard product={item} />}
+        keyExtractor={(item) => item.id}
+        showsVerticalScrollIndicator={false}
+        numColumns={2}
+        columnWrapperStyle={styles.productRow}
+        contentContainerStyle={styles.productsList}
+      />
     </View>
   );
 };
@@ -71,6 +97,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 10,
+    marginTop: 10,
+  },
+  productsHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 10,
+    marginTop: 20,
   },
   shopsTitle: {
     fontSize: 16,
@@ -84,6 +118,12 @@ const styles = StyleSheet.create({
   },
   shopsList: {
     paddingBottom: 15,
+  },
+  productsList: {
+    paddingBottom: 15,
+  },
+  productRow: {
+    justifyContent: 'space-between',
   },
 });
 
