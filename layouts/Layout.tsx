@@ -14,9 +14,10 @@ import Profile from '../screens/guard/Profile';
 import Settings from '../screens/guard/Settings';
 import Landing from '../screens/landing';
 import SearchScreen from '../screens/guard/SearchScreen';
-import Cart from '../screens/guard/Cart';
+import Cart from '../screens/guard/cart/Cart';
 import ProductDetails from '../screens/guard/Details/ProductDetails';
 import ShopDetails from '../screens/guard/Details/ShopDetails';
+import Payment from '../screens/guard/cart/Payment';
 
 function CustomTabs() {
   const Tabs = createBottomTabNavigator();
@@ -74,6 +75,7 @@ export default function Layout() {
         <Stack.Screen name="Cart" component={Cart} />
         <Stack.Screen name="ProductDetails" component={ProductDetails} />
         <Stack.Screen name="ShopDetails" component={ShopDetails} />
+        <Stack.Screen name="Payment" component={Payment} />
 
       </Stack.Navigator>
     </NavigationContainer>

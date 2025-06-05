@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, SafeAreaView, TouchableOpacity, StyleSheet, ScrollView, TextInput, Modal } from 'react-native';
-import { getOrder, clearOrder } from '../cart/cartOrderStorager';
+import { View, Text, SafeAreaView, TouchableOpacity, StyleSheet, ScrollView, TextInput } from 'react-native';
+import { getOrder, clearOrder } from '../cart/cartOrderStorager'; 
 import { AntDesign } from '@expo/vector-icons';
 
 const Payment = ({ navigation }) => {
   const [order, setOrder] = useState({ items: [], total: 0, deliveryAddress: '' });
-  const [showSuccess, setShowSuccess] = useState(false);
 
   useEffect(() => {
     const orderData = getOrder();
@@ -15,12 +14,7 @@ const Payment = ({ navigation }) => {
   }, []);
 
   const handleDone = () => {
-    setShowSuccess(true);
-  };
-
-  const handleCloseModal = () => {
-    setShowSuccess(false);
-    clearOrder();
+    clearOrder(); 
     navigation.goBack();
   };
 
@@ -79,25 +73,6 @@ const Payment = ({ navigation }) => {
           <Text style={styles.doneText}>PAY & CONFIRM</Text>
         </TouchableOpacity>
       </View>
-
-      <Modal
-        transparent={true}
-        visible={showSuccess}
-        animationType="fade"
-        onRequestClose={handleCloseModal}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.alertBox}>
-            <Text style={styles.alertText}>Congratulations</Text>
-            <Text style={styles.alertSubText}>
-              You successfully made a payment. Enjoy our services!
-            </Text>
-            <TouchableOpacity style={styles.closeButton} onPress={handleCloseModal}>
-              <Text style={styles.closeButtonText}>OK</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
     </SafeAreaView>
   );
 };
@@ -105,153 +80,144 @@ const Payment = ({ navigation }) => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#1E1E2F',
   },
   header: {
-    backgroundColor: '#0066cc',
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 16,
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#333',
+    backgroundColor: '#1E1E2F',
   },
   backButton: {
-    marginRight: 16,
+    padding: 5,
+    borderRadius: 15,
+    backgroundColor: '#333',
+    width: 30,
+    height: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   headerText: {
-    fontSize: 18,
     color: '#fff',
-    fontWeight: 'bold',
+    fontSize: 20,
+    fontWeight: '600',
+    flex: 1,
+    textAlign: 'center',
   },
   cartContent: {
-    padding: 16,
+    flex: 1,
+    paddingHorizontal: 10,
   },
   cartItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 12,
-    backgroundColor: '#f0f0f0',
-    borderRadius: 8,
-    padding: 10,
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#333',
   },
   itemImagePlaceholder: {
     width: 50,
     height: 50,
-    backgroundColor: '#ccc',
-    borderRadius: 6,
-    marginRight: 12,
+    backgroundColor: '#333',
+    borderRadius: 10,
+    marginRight: 10,
   },
   itemDetails: {
     flex: 1,
   },
   itemName: {
+    color: '#fff',
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: '500',
   },
   itemPrice: {
-    fontSize: 14,
-    color: '#333',
+    color: '#FF6200',
+    fontSize: 16,
+    fontWeight: '600',
   },
   quantityControl: {
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
   },
   quantityValue: {
+    color: '#fff',
     fontSize: 16,
-    fontWeight: 'bold',
+    marginHorizontal: 10,
   },
   emptyCart: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 30,
+    paddingVertical: 20,
   },
   emptyCartText: {
-    fontSize: 16,
-    color: '#888',
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: '500',
   },
   bottomSection: {
-    padding: 16,
-    borderTopWidth: 1,
-    borderColor: '#ccc',
-    backgroundColor: '#fafafa',
+    backgroundColor: '#fff',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    padding: 20,
+    paddingBottom: 40,
   },
   deliveryAddressContainer: {
-    marginBottom: 16,
+    marginBottom: 20,
   },
   addressHeader: {
-    marginBottom: 6,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 10,
   },
   addressLabel: {
-    fontSize: 14,
-    fontWeight: 'bold',
     color: '#333',
+    fontSize: 14,
+    fontWeight: '500',
   },
   addressInput: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 6,
+    backgroundColor: '#F5F5F5',
     padding: 10,
+    borderRadius: 8,
+    color: '#666',
     fontSize: 14,
-    backgroundColor: '#f5f5f5',
   },
   totalSection: {
-    marginBottom: 16,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 20,
   },
   totalDetails: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   totalLabel: {
+    color: '#666',
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: '500',
+    marginRight: 5,
   },
   totalPrice: {
-    fontSize: 16,
-    color: '#0066cc',
-    fontWeight: 'bold',
+    color: '#333',
+    fontSize: 24,
+    fontWeight: '600',
   },
   doneButton: {
-    backgroundColor: '#00C853',
-    paddingVertical: 14,
-    borderRadius: 8,
+    backgroundColor: '#00C853', // Green color for "Done" button
+    paddingVertical: 15,
+    borderRadius: 10,
     alignItems: 'center',
   },
   doneText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '600',
-  },
-  modalContainer: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  alertBox: {
-    backgroundColor: '#fff',
-    padding: 24,
-    borderRadius: 12,
-    width: 300,
-    alignItems: 'center',
-  },
-  alertText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 12,
-  },
-  alertSubText: {
-    fontSize: 16,
-    textAlign: 'center',
-    color: '#555',
-    marginBottom: 20,
-  },
-  closeButton: {
-    backgroundColor: '#00C853',
-    paddingHorizontal: 24,
-    paddingVertical: 10,
-    borderRadius: 6,
-  },
-  closeButtonText: {
-    color: '#fff',
-    fontWeight: '600',
-    fontSize: 16,
   },
 });
 
