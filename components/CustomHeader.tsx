@@ -1,9 +1,16 @@
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity } from 'react-native'
-import React from 'react'
-import { Ionicons as Icon } from '@expo/vector-icons'
-import { MaterialCommunityIcons as MaterialIcon } from '@expo/vector-icons'
+import React from 'react';
+import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity } from 'react-native';
+import { Ionicons as Icon } from '@expo/vector-icons';
+import { MaterialCommunityIcons as MaterialIcon } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native'; // Navigation hook
 
 export default function CustomHeader() {
+  const navigation = useNavigation(); // Initialize navigation
+
+  const handleCartPress = () => {
+    navigation.navigate('Cart'); // Navigate to the Cart screen
+  };
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.headerContainer}>
@@ -13,17 +20,16 @@ export default function CustomHeader() {
           </TouchableOpacity>
           <View style={styles.deliveryTextContainer}>
             <Text style={styles.deliverTo}>DELIVER TO</Text>
-            <View style = {styles.deliveryContainer}>
-            <Text style={styles.location}>Halal Lab office </Text>
-            <TouchableOpacity>
-              <Icon name="caret-down" size={18} color="#000" />
-            </TouchableOpacity>
+            <View style={styles.deliveryContainer}>
+              <Text style={styles.location}>Halal Lab office</Text>
+              <TouchableOpacity>
+                <Icon name="caret-down" size={18} color="#000" />
+              </TouchableOpacity>
             </View>
-            
           </View>
         </View>
 
-        <TouchableOpacity style={styles.cartIconContainer}>
+        <TouchableOpacity style={styles.cartIconContainer} onPress={handleCartPress}>
           <MaterialIcon name="shopping-outline" size={24} color="#fff" />
           <View style={styles.cartBadge}>
             <Text style={styles.cartBadgeText}>2</Text>
@@ -37,13 +43,13 @@ export default function CustomHeader() {
         </Text>
       </View>
     </SafeAreaView>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
   safeArea: {
     backgroundColor: '#fff',
-    paddingVertical:35,
+    paddingVertical: 35,
     height: 140,
   },
   headerContainer: {
@@ -104,4 +110,4 @@ const styles = StyleSheet.create({
   greetingBold: {
     fontWeight: 'bold',
   },
-})
+});
