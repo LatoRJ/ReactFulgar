@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import SearchBar from '../../components/SearchBar';
 import Categories from '../../components/Categories';
@@ -32,6 +32,10 @@ const Home = () => {
     setSearchQuery(query.toLowerCase());
   };
 
+  const handleShopPress = (shop) => {
+    Alert.alert('Shop Selected', `You clicked on ${shop.name}`);
+  };
+
   const filteredShops = watchShops.filter(shop =>
     (selectedCategory === 'All' || shop.brand === selectedCategory) &&
     (shop.name.toLowerCase().includes(searchQuery) ||
@@ -54,7 +58,7 @@ const Home = () => {
       </View>
       <FlatList
         data={filteredShops}
-        renderItem={({ item }) => <ShopCard item={item} />}
+        renderItem={({ item }) => <ShopCard item={item} onPress={handleShopPress} />}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.shopsList}

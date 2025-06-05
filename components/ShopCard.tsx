@@ -1,11 +1,11 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const ShopCard = ({ item }) => {
+const ShopCard = ({ item, onPress }) => {
   return (
-    <View style={styles.shopContainer}>
+    <TouchableOpacity style={styles.shopContainer} onPress={() => onPress(item)}>
       <Image source={{ uri: item.image }} style={styles.shopImage} />
       <View style={styles.shopDetails}>
         <Text style={styles.shopName}>{item.name}</Text>
@@ -23,7 +23,7 @@ const ShopCard = ({ item }) => {
           <Text style={styles.time}>{item.time}</Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
