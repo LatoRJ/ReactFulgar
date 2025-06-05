@@ -3,7 +3,7 @@ import { SafeAreaView, View, Text, FlatList, StyleSheet, TextInput, TouchableOpa
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import ShopCard from '../../components/ShopCard';
-import { watchShops } from '../../components/Datas/data';
+import { watchShops, categories as categoriesData } from '../../components/Datas/data';
 import Categories from '../../components/Categories';
 import Keywords from '../../components/Keywords';
 
@@ -11,37 +11,31 @@ const SearchScreen = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const { searchQuery: initialSearchQuery, setSearchQuery } = route.params || {};
-  
   const [searchQuery, setLocalSearchQuery] = useState(initialSearchQuery || '');
   const [filteredShops, setFilteredShops] = useState([]);
   const [recentKeywords, setRecentKeywords] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('All');
 
   useEffect(() => {
-    const filterShops = () => {
-      const filtered = watchShops.filter(shop =>
-        (shop.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        shop.brand.toLowerCase().includes(searchQuery.toLowerCase())) &&
-        (selectedCategory === 'All' || shop.brand.toLowerCase() === selectedCategory.toLowerCase())
-      );
-      setFilteredShops(filtered);
-    };
-    filterShops();
+    const filtered = watchShops.filter(shop => {
+      const matchesSearch = shop.name.toLowerCase().includes(searchQuery.toLowerCase()) || shop.brand.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesCategory = selectedCategory === 'All' || shop.brand.toLowerCase() === selectedCategory.toLowerCase();
+      return matchesSearch && matchesCategory;
+    });
+    setFilteredShops(filtered);
   }, [searchQuery, selectedCategory]);
 
-  const handleSearch = (text) => {
-    setLocalSearchQuery(text);
-  };
+  const handleSearchChange = text => setLocalSearchQuery(text);
 
   const handleBackPress = () => {
-    if (setSearchQuery) setSearchQuery(''); 
+    if (setSearchQuery) setSearchQuery('');
     navigation.goBack();
   };
 
-  const handleCategoryPress = (category) => {
+  const handleCategoryPress = category => {
     setSelectedCategory(category);
     if (category !== 'All' && !recentKeywords.includes(category)) {
-      setRecentKeywords([category, ...recentKeywords]);
+      setRecentKeywords(prev => [category, ...prev]);
     }
   };
 
@@ -53,20 +47,21 @@ const SearchScreen = () => {
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Search</Text>
       </View>
+
       <View style={styles.content}>
         <TextInput
           style={styles.searchInput}
           value={searchQuery}
-          onChangeText={handleSearch}
+          onChangeText={handleSearchChange}
           placeholder="Search watches, shops"
         />
-        
+
         <Categories
-          categories={['All', 'Rolex', 'Cartier', 'Omega', 'Breitling', 'Casio']}
+          categories={categoriesData}
           selectedCategory={selectedCategory}
           setSelectedCategory={handleCategoryPress}
         />
-        
+
         <Keywords
           recentKeywords={recentKeywords}
           onKeywordPress={handleCategoryPress}
@@ -75,7 +70,7 @@ const SearchScreen = () => {
         <FlatList
           data={filteredShops}
           renderItem={({ item }) => <ShopCard item={item} onPress={() => {}} />}
-          keyExtractor={(item) => item.id}
+          keyExtractor={item => item.id}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.shopsList}
         />
