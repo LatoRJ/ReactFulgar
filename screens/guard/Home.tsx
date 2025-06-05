@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native'; // Add useFocusEffect
 import SearchBar from '../../components/SearchBar';
 import Categories from '../../components/Categories';
 import ShopCard from '../../components/ShopCard';
@@ -19,6 +19,16 @@ const Home = () => {
     Alert.alert('Shop Selected', `You clicked on ${shop.name}`);
   };
 
+  const handleSearchBarPress = () => {
+    navigation.navigate('SearchScreen', { searchQuery, setSearchQuery });
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      setSearchQuery('');
+    }, [])
+  );
+
   const filteredShops = watchShops.filter(shop =>
     (selectedCategory === 'All' || shop.brand === selectedCategory) &&
     (shop.name.toLowerCase().includes(searchQuery) ||
@@ -27,7 +37,7 @@ const Home = () => {
 
   return (
     <View style={styles.container}>
-      <SearchBar onSearch={handleSearch} />
+      <SearchBar onSearch={handleSearch} onPress={handleSearchBarPress} value={searchQuery} />
       <Categories 
         categories={categories} 
         selectedCategory={selectedCategory} 

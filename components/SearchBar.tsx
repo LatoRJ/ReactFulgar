@@ -1,30 +1,28 @@
-import React, { useState } from 'react';
-import { View, TextInput, StyleSheet } from 'react-native';
+import React from 'react';
+import { View, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-const SearchBar = ({ onSearch }) => {
-  const [searchQuery, setSearchQuery] = useState('');
-
+const SearchBar = ({ onSearch, onPress, value }) => {
   const handleSearch = (text) => {
-    setSearchQuery(text);
     if (onSearch) {
       onSearch(text);
     }
   };
 
   return (
-    <View style={styles.searchContainer}>
+    <TouchableOpacity style={styles.searchContainer} onPress={onPress}>
       <View style={styles.searchInputContainer}>
         <Ionicons name="search" size={20} color="#A9A9A9" style={styles.searchIcon} />
         <TextInput
           style={styles.searchInput}
-          value={searchQuery}
+          value={value}
           onChangeText={handleSearch}
           placeholder="Search watches, shops"
           placeholderTextColor="#A9A9A9"
+          editable={false} 
         />
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
