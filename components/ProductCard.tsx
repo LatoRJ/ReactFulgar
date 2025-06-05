@@ -2,9 +2,9 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, onPress }) => {
   return (
-    <View style={styles.card}>
+    <TouchableOpacity style={styles.card} onPress={onPress}>
       <Image
         source={{ uri: product.image }}
         style={styles.image}
@@ -14,11 +14,11 @@ const ProductCard = ({ product }) => {
       <Text style={styles.secondaryName}>{product.brand}</Text>
       <View style={styles.bottomRow}>
         <Text style={styles.price}>₱{product.price}</Text>
-        <TouchableOpacity style={styles.plusButton}>
+        <TouchableOpacity style={styles.plusButton} onPress={onPress}>
           <Ionicons name="add" size={20} color="white" />
         </TouchableOpacity>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 100,
     borderRadius: 8,
-    backgroundColor: '#D3D3D3', 
+    backgroundColor: '#D3D3D3',
   },
   name: {
     fontSize: 16,

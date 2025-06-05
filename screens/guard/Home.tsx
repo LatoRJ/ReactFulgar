@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import SearchBar from '../../components/SearchBar';
 import Categories from '../../components/Categories';
@@ -17,11 +17,11 @@ const Home = () => {
   };
 
   const handleShopPress = (shop) => {
-    Alert.alert('Shop Selected', `You clicked on ${shop.name}`);
+    navigation.navigate('ShopDetails', { shop }); 
   };
 
   const handleProductPress = (product) => {
-    Alert.alert('Product Selected', `You clicked on ${product.name}`);
+    navigation.navigate('ProductDetails', { product });
   };
 
   const handleSearchBarPress = () => {
@@ -54,8 +54,25 @@ const Home = () => {
         selectedCategory={selectedCategory} 
         setSelectedCategory={setSelectedCategory} 
       />
+      <View style={styles.productsHeader}>
+        <Text style={styles.sectionTitle}>Featured Products</Text>
+        <TouchableOpacity>
+          <Text style={styles.seeAllText}>See All</Text>
+        </TouchableOpacity>
+      </View>
+      <FlatList
+        data={filteredProducts}
+        renderItem={({ item }) => (
+          <ProductCard product={item} onPress={() => handleProductPress(item)} />
+        )}
+        keyExtractor={(item) => item.id}
+        showsVerticalScrollIndicator={false}
+        numColumns={2}
+        columnWrapperStyle={styles.productRow}
+        contentContainerStyle={styles.productsList}
+      />
       <View style={styles.shopsHeader}>
-        <Text style={styles.shopsTitle}>Open Watch Shops</Text>
+        <Text style={styles.sectionTitle}>Open Watch Shops</Text>
         <TouchableOpacity>
           <Text style={styles.seeAllText}>See All</Text>
         </TouchableOpacity>
@@ -67,21 +84,6 @@ const Home = () => {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.shopsList}
       />
-      <View style={styles.productsHeader}>
-        <Text style={styles.shopsTitle}>Featured Products</Text>
-        <TouchableOpacity>
-          <Text style={styles.seeAllText}>See All</Text>
-        </TouchableOpacity>
-      </View>
-      <FlatList
-        data={filteredProducts}
-        renderItem={({ item }) => <ProductCard product={item} />}
-        keyExtractor={(item) => item.id}
-        showsVerticalScrollIndicator={false}
-        numColumns={2}
-        columnWrapperStyle={styles.productRow}
-        contentContainerStyle={styles.productsList}
-      />
     </View>
   );
 };
@@ -92,13 +94,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     padding: 16,
   },
-  shopsHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 10,
-    marginTop: 10,
-  },
   productsHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -106,7 +101,14 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginTop: 20,
   },
-  shopsTitle: {
+  shopsHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 10,
+    marginTop: 20,
+  },
+  sectionTitle: {
     fontSize: 16,
     fontWeight: '600',
     color: '#333',
