@@ -1,258 +1,231 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, SafeAreaView, TouchableOpacity, StyleSheet, ScrollView, TextInput, Modal } from 'react-native';
-import { getOrder, clearOrder } from '../cart/cartOrderStorager';
-import { AntDesign } from '@expo/vector-icons';
+import React, { useState } from 'react';
+import { View, Text, Image, TouchableOpacity, StyleSheet, Modal, Text as RNText } from 'react-native';
+import { Ionicons, AntDesign, MaterialIcons } from '@expo/vector-icons';
+import CartButton from '../../../components/cartButton';
+import { addToCart } from '../cart/cartStorage';
 
-const Payment = ({ navigation }) => {
-  const [order, setOrder] = useState({ items: [], total: 0, deliveryAddress: '' });
-  const [showSuccess, setShowSuccess] = useState(false);
+const ProductDetails = ({ route, navigation }) => {
+  const { product } = route.params;
+  const [quantity, setQuantity] = useState(1);
+  const [showAlert, setShowAlert] = useState(false);
 
-  useEffect(() => {
-    const orderData = getOrder();
-    if (orderData) {
-      setOrder(orderData);
-    }
-  }, []);
+  const increaseQuantity = () => setQuantity((prev) => (prev < product.stocks ? prev + 1 : prev));
+  const decreaseQuantity = () => setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
 
-  const handleDone = () => {
-    setShowSuccess(true);
+  const handleAddToCart = () => {
+    addToCart(product, quantity);
+    setShowAlert(true);
   };
 
-  const handleCloseModal = () => {
-    setShowSuccess(false);
-    clearOrder();
-    navigation.goBack();
+  const closeAlert = () => {
+    setShowAlert(false);
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <View style={styles.header}>
-        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-          <AntDesign name="arrowleft" size={20} color="#fff" />
-        </TouchableOpacity>
-        <Text style={styles.headerText}>Payment</Text>
+    <View style={styles.container}>
+      <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+        <AntDesign name="arrowleft" size={24} color="#333" />
+      </TouchableOpacity>
+
+      <Image source={{ uri: product.image }} style={styles.image} />
+
+      <View style={styles.infoSection}>
+        <View style={styles.shopInfo}>
+          <Ionicons name="storefront" size={16} color="#FF6200" />
+          <Text style={styles.shopText}>{product.brand || 'Watch Shop'}</Text>
+        </View>
+
+        <Text style={styles.name}>{product.name}</Text>
+        <Text style={styles.description}>{product.description}</Text>
+
+        <View style={styles.detailsRow}>
+          {product.rating && (
+            <View style={styles.iconDetail}>
+              <AntDesign name="star" size={16} color="#FFB800" />
+              <Text style={styles.detailText}>{product.rating}</Text>
+            </View>
+          )}
+
+          {product.freeDelivery && (
+            <View style={styles.iconDetail}>
+              <MaterialIcons name="delivery-dining" size={16} color="#666" />
+              <Text style={styles.detailText}>Free</Text>
+            </View>
+          )}
+
+          {product.time && (
+            <View style={styles.iconDetail}>
+              <Ionicons name="time" size={16} color="#666" />
+              <Text style={styles.detailText}>{product.time}</Text>
+            </View>
+          )}
+        </View>
       </View>
 
-      <ScrollView style={styles.cartContent}>
-        {order.items.length > 0 ? (
-          order.items.map((item) => (
-            <View key={item.id} style={styles.cartItem}>
-              <View style={styles.itemImagePlaceholder} />
-              <View style={styles.itemDetails}>
-                <Text style={styles.itemName}>{item.name}</Text>
-                <Text style={styles.itemPrice}>${item.price}</Text>
-              </View>
-              <View style={styles.quantityControl}>
-                <Text style={styles.quantityValue}>{item.quantity}</Text>
-              </View>
-            </View>
-          ))
-        ) : (
-          <View style={styles.emptyCart}>
-            <Text style={styles.emptyCartText}>No items to display</Text>
-          </View>
-        )}
-      </ScrollView>
-
-      <View style={styles.bottomSection}>
-        <View style={styles.deliveryAddressContainer}>
-          <View style={styles.addressHeader}>
-            <Text style={styles.addressLabel}>DELIVERY ADDRESS</Text>
-          </View>
-          <TextInput
-            style={styles.addressInput}
-            value={order.deliveryAddress}
-            editable={false}
-            placeholder="Enter delivery address"
-            placeholderTextColor="#999"
-          />
-        </View>
-
-        <View style={styles.totalSection}>
-          <View style={styles.totalDetails}>
-            <Text style={styles.totalLabel}>TOTAL:</Text>
-            <Text style={styles.totalPrice}>${order.total}</Text>
+      <View style={styles.footer}>
+        <View style={styles.priceQuantity}>
+          <Text style={styles.price}>₱{product.price * quantity}</Text>
+          <View style={styles.quantityContainer}>
+            <TouchableOpacity style={styles.qtyButton} onPress={decreaseQuantity}>
+              <AntDesign name="minus" size={16} color="#fff" />
+            </TouchableOpacity>
+            <Text style={styles.quantityText}>{quantity}</Text>
+            <TouchableOpacity style={styles.qtyButton} onPress={increaseQuantity}>
+              <AntDesign name="plus" size={16} color="#fff" />
+            </TouchableOpacity>
           </View>
         </View>
 
-        <TouchableOpacity style={styles.doneButton} onPress={handleDone}>
-          <Text style={styles.doneText}>PAY & CONFIRM</Text>
-        </TouchableOpacity>
+        <CartButton onPress={handleAddToCart} />
       </View>
 
       <Modal
         transparent={true}
-        visible={showSuccess}
+        visible={showAlert}
+        onRequestClose={closeAlert}
         animationType="fade"
-        onRequestClose={handleCloseModal}
       >
         <View style={styles.modalContainer}>
           <View style={styles.alertBox}>
-            <Text style={styles.alertText}>Congratulations</Text>
-            <Text style={styles.alertSubText}>
-              You successfully made a payment. Enjoy our services!
-            </Text>
-            <TouchableOpacity style={styles.closeButton} onPress={handleCloseModal}>
+            <RNText style={styles.alertText}>Added {quantity} {product.name}(s) to Cart</RNText>
+            <TouchableOpacity style={styles.closeButton} onPress={closeAlert}>
               <Text style={styles.closeButtonText}>OK</Text>
             </TouchableOpacity>
           </View>
         </View>
       </Modal>
-    </SafeAreaView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  safeArea: {
+  container: {
     flex: 1,
     backgroundColor: '#fff',
   },
-  header: {
-    backgroundColor: '#0066cc',
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 16,
-  },
   backButton: {
-    marginRight: 16,
+    padding: 16,
+    position: 'absolute',
+    top: 40,
+    left: 10,
+    zIndex: 10,
   },
-  headerText: {
-    fontSize: 18,
-    color: '#fff',
-    fontWeight: 'bold',
+  image: {
+    width: '100%',
+    height: 250,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    backgroundColor: '#ccc',
   },
-  cartContent: {
+  infoSection: {
     padding: 16,
   },
-  cartItem: {
+  shopInfo: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 12,
-    backgroundColor: '#f0f0f0',
-    borderRadius: 8,
-    padding: 10,
+    marginBottom: 8,
   },
-  itemImagePlaceholder: {
-    width: 50,
-    height: 50,
-    backgroundColor: '#ccc',
-    borderRadius: 6,
-    marginRight: 12,
-  },
-  itemDetails: {
-    flex: 1,
-  },
-  itemName: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  itemPrice: {
+  shopText: {
+    marginLeft: 6,
     fontSize: 14,
+    color: '#FF6200',
+    fontWeight: '500',
+  },
+  name: {
+    fontSize: 22,
+    fontWeight: '700',
     color: '#333',
-  },
-  quantityControl: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  quantityValue: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  emptyCart: {
-    alignItems: 'center',
-    marginTop: 30,
-  },
-  emptyCartText: {
-    fontSize: 16,
-    color: '#888',
-  },
-  bottomSection: {
-    padding: 16,
-    borderTopWidth: 1,
-    borderColor: '#ccc',
-    backgroundColor: '#fafafa',
-  },
-  deliveryAddressContainer: {
-    marginBottom: 16,
-  },
-  addressHeader: {
     marginBottom: 6,
   },
-  addressLabel: {
+  description: {
     fontSize: 14,
+    color: '#666',
+    marginBottom: 16,
+  },
+  detailsRow: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    gap: 20,
+  },
+  iconDetail: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: 16,
+  },
+  detailText: {
+    marginLeft: 4,
+    fontSize: 14,
+    color: '#444',
+  },
+  footer: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: '#f3f3f3',
+    padding: 16,
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
+  },
+  priceQuantity: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  price: {
+    fontSize: 24,
     fontWeight: 'bold',
     color: '#333',
   },
-  addressInput: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 6,
-    padding: 10,
-    fontSize: 14,
-    backgroundColor: '#f5f5f5',
-  },
-  totalSection: {
-    marginBottom: 16,
-  },
-  totalDetails: {
+  quantityContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  totalLabel: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  totalPrice: {
-    fontSize: 16,
-    color: '#0066cc',
-    fontWeight: 'bold',
-  },
-  doneButton: {
-    backgroundColor: '#00C853',
-    paddingVertical: 14,
-    borderRadius: 8,
     alignItems: 'center',
+    backgroundColor: '#000',
+    borderRadius: 20,
+    paddingHorizontal: 16,
+    paddingVertical: 6,
   },
-  doneText: {
-    color: '#fff',
+  qtyButton: {
+    padding: 6,
+  },
+  quantityText: {
+    marginHorizontal: 10,
     fontSize: 16,
     fontWeight: '600',
+    color: '#fff',
   },
   modalContainer: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.5)',
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   alertBox: {
+    width: 250,
+    padding: 20,
     backgroundColor: '#fff',
-    padding: 24,
-    borderRadius: 12,
-    width: 300,
+    borderRadius: 10,
     alignItems: 'center',
   },
   alertText: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 12,
-  },
-  alertSubText: {
-    fontSize: 16,
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#333',
     textAlign: 'center',
-    color: '#555',
     marginBottom: 20,
   },
   closeButton: {
-    backgroundColor: '#00C853',
-    paddingHorizontal: 24,
+    backgroundColor: '#FF6200',
     paddingVertical: 10,
-    borderRadius: 6,
+    paddingHorizontal: 20,
+    borderRadius: 8,
   },
   closeButtonText: {
     color: '#fff',
-    fontWeight: '600',
     fontSize: 16,
+    fontWeight: '600',
   },
 });
 
-export default Payment;
+export default ProductDetails;

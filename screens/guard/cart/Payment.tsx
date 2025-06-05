@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, SafeAreaView, TouchableOpacity, StyleSheet, ScrollView, TextInput } from 'react-native';
-import { getOrder, clearOrder } from '../cart/cartOrderStorager'; 
+import { View, Text, SafeAreaView, TouchableOpacity, StyleSheet, ScrollView, TextInput, Modal } from 'react-native';
+import { getOrder, clearOrder } from '../cart/cartOrderStorager';
 import { AntDesign } from '@expo/vector-icons';
 
 const Payment = ({ navigation }) => {
   const [order, setOrder] = useState({ items: [], total: 0, deliveryAddress: '' });
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const orderData = getOrder();
@@ -14,7 +15,12 @@ const Payment = ({ navigation }) => {
   }, []);
 
   const handleDone = () => {
-    clearOrder(); 
+    setShowModal(true); 
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    clearOrder();
     navigation.goBack();
   };
 
@@ -73,6 +79,20 @@ const Payment = ({ navigation }) => {
           <Text style={styles.doneText}>PAY & CONFIRM</Text>
         </TouchableOpacity>
       </View>
+
+      <Modal visible={showModal} transparent animationType="fade" onRequestClose={handleCloseModal}>
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Payment Successful</Text>
+            <Text style={styles.modalText}>
+              Your payment has been processed successfully.
+            </Text>
+            <TouchableOpacity style={styles.modalButton} onPress={handleCloseModal}>
+              <Text style={styles.modalButtonText}>OK</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 };
@@ -209,7 +229,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   doneButton: {
-    backgroundColor: '#00C853', // Green color for "Done" button
+    backgroundColor: '#00C853',
     paddingVertical: 15,
     borderRadius: 10,
     alignItems: 'center',
@@ -217,6 +237,42 @@ const styles = StyleSheet.create({
   doneText: {
     color: '#fff',
     fontSize: 18,
+    fontWeight: '600',
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.6)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    backgroundColor: '#fff',
+    padding: 25,
+    borderRadius: 12,
+    width: 300,
+    alignItems: 'center',
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: '700',
+    marginBottom: 10,
+    color: '#00C853',
+  },
+  modalText: {
+    fontSize: 16,
+    color: '#333',
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  modalButton: {
+    backgroundColor: '#00C853',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 8,
+  },
+  modalButtonText: {
+    color: '#fff',
+    fontSize: 16,
     fontWeight: '600',
   },
 });
