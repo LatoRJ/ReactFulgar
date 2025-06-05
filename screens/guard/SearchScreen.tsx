@@ -39,6 +39,10 @@ const SearchScreen = () => {
     }
   };
 
+  const handleShopPress = (shop) => {
+    navigation.navigate('ShopDetails', { shop }); // Navigate to ShopDetails
+  };
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.header}>
@@ -69,7 +73,7 @@ const SearchScreen = () => {
 
         <FlatList
           data={filteredShops}
-          renderItem={({ item }) => <ShopCard item={item} onPress={() => {}} />}
+          renderItem={({ item }) => <ShopCard item={item} onPress={() => handleShopPress(item)} />}
           keyExtractor={item => item.id}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.shopsList}
