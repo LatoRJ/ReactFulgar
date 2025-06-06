@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import axios from 'axios';
 
 import styles from '../styles/styles';
 
@@ -15,12 +16,13 @@ export default function Start() {
 
   const navigation = useNavigation();
 
-  const fixedUser = {
+ /* const fixedUser = {
     email: 'admin@example.com',
     password: 'admin',
   };
+  
 
-  const handleLogin = () => {
+   const handleLogin = () => {
     if (email === fixedUser.email && password === fixedUser.password) {
       console.log('Navigating to CustomTabs');
       navigation.reset({
@@ -37,7 +39,33 @@ export default function Start() {
         { cancelable: false }
       );
     }
-  };
+  }; */
+  
+
+  const ApiLogin = 'http://192.168.0.221:8000/api/login';
+  const handleLogin = async () => {
+  try {
+    const response = await axios.post(ApiLogin, {
+      email,
+      password,
+    });
+
+    if (response.status === 200) {
+      console.log('Login successful:', response.data);
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'CustomTabs' }],
+      });
+    }
+  } catch (error) {
+    console.log('Login error:', error);
+    Alert.alert(
+      'Login Failed',
+      'Invalid email or password. Please try again.',
+      [{ text: 'OK' }]
+    );
+  }
+}; 
 
   return (
     <SafeAreaView style={styles.loginContainer}>
