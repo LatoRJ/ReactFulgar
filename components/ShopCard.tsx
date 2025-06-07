@@ -6,21 +6,10 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 const ShopCard = ({ item, onPress }) => {
   return (
     <TouchableOpacity style={styles.shopContainer} onPress={() => onPress(item)}>
-      <Image source={{ uri: item.image }} style={styles.shopImage} />
       <View style={styles.shopDetails}>
-        <Text style={styles.shopName}>{item.name}</Text>
-        <Text style={styles.shopBrand}>{item.brand}</Text>
+        <Text style={styles.shopName}>{item.shop || 'Unknown Brand'}</Text>
+        <Text style={styles.shopBrand}>{item.name || 'No Shop Info'}</Text>
         <View style={styles.ratingContainer}>
-          <Ionicons name="star" size={16} color="#FF6200" style={styles.icon} />
-          <Text style={styles.rating}>{item.rating}</Text>
-          {item.freeDelivery && (
-            <>
-              <MaterialCommunityIcons name="truck-fast-outline" size={16} color="#FF6200" style={styles.icon} />
-              <Text style={[styles.freeDelivery, { color: 'black' }]}>Free</Text>
-            </>
-          )}
-          <Ionicons name="time" size={16} color="#FF6200" style={styles.icon} />
-          <Text style={styles.time}>{item.time}</Text>
         </View>
       </View>
     </TouchableOpacity>

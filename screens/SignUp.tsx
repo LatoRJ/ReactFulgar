@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
 import styles from '../styles/styles';
-import { useEffect } from 'react';
-import axios from 'axios';
-import { Alert } from 'react-native';
+import api from '../api';
 
 export default function SignUp() {
   const [name, setName] = useState('');
@@ -15,32 +13,48 @@ export default function SignUp() {
   const [retypePassword, setRetypePassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [retypePasswordVisible, setRetypePasswordVisible] = useState(false);
-
-  const ApiKey = 'http://192.168.0.221:8000/api/store';
-
-      const handleRegister = async () => {
-        try {
-          const response = await axios.post(ApiKey, { 
-            name,
-            email,
-            password,
-            password_confirmation: password,
-          });
-
-          if (response.status === 200 || response.status === 201 || response.status === 204) {
-            Alert.alert('Success', 'Registration successful!');
-    
-          } else {
-            Alert.alert('Error', 'Unexpected response from server');
-          }
-        } catch (error) {
-        console.log("error send",error);
-        Alert.alert('Registration Failed', 'Please check your inputs or try again later.')
-        }
-      };
-
+  const [loading, setLoading] = useState(false);
 
   const navigation = useNavigation();
+
+  const handleSignUp = async () => {
+  if (!name || !email || !password || !retypePassword) {
+    Alert.alert('Error', 'Please fill all fields');
+    return;
+  }
+
+  if (password !== retypePassword) {
+    Alert.alert('Error', 'Passwords do not match');
+    return;
+  }
+
+  setLoading(true);
+
+  try {
+    const response = await api.post('/register', {
+      name,
+      email,
+      password,
+      password_confirmation: retypePassword,
+    });
+
+    Alert.alert('Success', 'Account created successfully');
+    navigation.goBack(); // Or go to login screen
+  } catch (error) {
+    const data = error.response?.data;
+
+    if (data?.errors) {
+      const messages = Object.values(data.errors)
+        .map((msgArr) => msgArr.join('\n'))
+        .join('\n');
+      Alert.alert('Registration Failed', messages);
+    } else {
+      Alert.alert('Registration Failed', data?.message || 'Please try again.');
+    }
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <SafeAreaView style={styles.signupScreenContainer}>
@@ -126,9 +140,17 @@ export default function SignUp() {
           </View>
         </View>
 
-        <TouchableOpacity onPress={handleRegister} style={styles.signupButton}>
+        <TouchableOpacity
+        style={styles.signupButton}
+        onPress={handleSignUp}
+        disabled={loading}
+      >
+        {loading ? (
+          <ActivityIndicator color="#fff" />
+        ) : (
           <Text style={styles.signupButtonText}>SIGN UP</Text>
-        </TouchableOpacity>
+        )}
+      </TouchableOpacity>
       </View>
     </SafeAreaView>
   );

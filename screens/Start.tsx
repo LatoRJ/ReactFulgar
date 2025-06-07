@@ -1,71 +1,53 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Feather';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import axios from 'axios';
-
 import styles from '../styles/styles';
+import api from '../api';
 
 export default function Start() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const navigation = useNavigation();
 
- /* const fixedUser = {
-    email: 'admin@example.com',
-    password: 'admin',
-  };
-  
+const handleLogin = async () => {
+  if (!email || !password) {
+    Alert.alert('Error', 'Please fill all fields');
+    return;
+  }
 
-   const handleLogin = () => {
-    if (email === fixedUser.email && password === fixedUser.password) {
-      console.log('Navigating to CustomTabs');
-      navigation.reset({
-        index: 0,
-        routes: [{ name: 'CustomTabs' }],
-      });
-    } else {
-      Alert.alert(
-        'Login Failed',
-        'Invalid email or password. Please try again.',
-        [
-          { text: 'OK', onPress: () => console.log('Alert closed') }
-        ],
-        { cancelable: false }
-      );
-    }
-  }; */
-  
+  setLoading(true);
 
-  const ApiLogin = 'http://192.168.0.221:8000/api/login';
-  const handleLogin = async () => {
   try {
-    const response = await axios.post(ApiLogin, {
+    const response = await api.post('/login', {
       email,
       password,
     });
 
-    if (response.status === 200) {
-      console.log('Login successful:', response.data);
-      navigation.reset({
-        index: 0,
-        routes: [{ name: 'CustomTabs' }],
-      });
-    }
+    const data = response.data;
+
+    // Optionally store token using AsyncStorage
+    // await AsyncStorage.setItem('token', data.token);
+
+    Alert.alert('Success', 'Logged in successfully');
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'CustomTabs' }],
+    });
   } catch (error) {
-    console.log('Login error:', error);
-    Alert.alert(
-      'Login Failed',
-      'Invalid email or password. Please try again.',
-      [{ text: 'OK' }]
-    );
+    const message =
+      error.response?.data?.message || 'Login failed, please try again.';
+    Alert.alert('Login Failed', message);
+  } finally {
+    setLoading(false);
   }
-}; 
+};
 
   return (
     <SafeAreaView style={styles.loginContainer}>

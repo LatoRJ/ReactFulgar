@@ -32,7 +32,7 @@ export default function CustomHeader() {
         <TouchableOpacity style={styles.cartIconContainer} onPress={handleCartPress}>
           <MaterialIcon name="shopping-outline" size={24} color="#fff" />
           <View style={styles.cartBadge}>
-            <Text style={styles.cartBadgeText}>2</Text>
+            <Text style={styles.cartBadgeText}>0</Text>
           </View>
         </TouchableOpacity>
       </View>

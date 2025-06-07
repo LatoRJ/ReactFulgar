@@ -18,6 +18,10 @@ import Cart from '../screens/guard/cart/Cart';
 import ProductDetails from '../screens/guard/Details/ProductDetails';
 import ShopDetails from '../screens/guard/Details/ShopDetails';
 import Payment from '../screens/guard/cart/Payment';
+import { useEffect, useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ActivityIndicator } from 'react-native';
+
 
 function CustomTabs() {
   const Tabs = createBottomTabNavigator();
